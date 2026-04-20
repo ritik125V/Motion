@@ -3,11 +3,14 @@ import cors from 'cors';
 import connectDB from '../backend/Database/mongo.js'
 import cookieParser from 'cookie-parser';
 import userRouter from './routes/user_route.js';
+import dotenv from 'dotenv';
+dotenv.config();
 
 
 const app = express();
+console.log("frontend url from env:", process.env.FRONTEND_URL);
 app.use(cors({
-  origin: 'http://localhost:3000', 
+  origin: process.env.FRONTEND_URL || 'http://localhost:3000',
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization', 'x-api-key'],

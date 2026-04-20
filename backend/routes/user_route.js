@@ -13,10 +13,10 @@ userRouter.post('/guest-login',guestLogin);
 // user
 
 userRouter.post('/todo/create',validateToken,createTodo);
-userRouter.put('/todo/updateStatus',updateCompletionStatus);
-userRouter.delete('/todo/delete',deleteTodo);
-userRouter.put('/todo/edit',editTodo);
+userRouter.put('/todo/updateStatus',validateToken,updateCompletionStatus);
+userRouter.delete('/todo/delete',validateToken,deleteTodo);
+userRouter.put('/todo/edit',validateToken,editTodo);
 userRouter.get('/todo/getall',validateToken ,getUserTodos);
-userRouter.get('/profile',getUserProfile);
+userRouter.get('/profile',validateToken,getUserProfile);
 userRouter.get('/status',checkLoginStatus,getStatus);
 export default userRouter;
