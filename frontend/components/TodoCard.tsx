@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check, Pencil, Trash2, X ,Circle,CircleCheck,Loader, Loader2   } from "lucide-react";
-import { p, param } from "framer-motion/client";
+import { p, param, s } from "framer-motion/client";
 
 interface Todo {
   _id: string;
@@ -25,6 +25,7 @@ function TodoCard({ todo, onUpdate }: { todo: Todo; onUpdate?: () => void }) {
 
   async function toggleCompletion() {
     try {
+      setUpdatingstatus(true);
       await axios.put(
         `${process.env.NEXT_PUBLIC_API_BASE_URL}/todo/updateStatus`,
         {},{
@@ -36,14 +37,18 @@ function TodoCard({ todo, onUpdate }: { todo: Todo; onUpdate?: () => void }) {
         }
         
       );
+      setUpdatingstatus(false);
       onUpdate?.();
     } catch (error) {
+      setUpdatingstatus(false);
       console.error("Error updating todo status:", error);
     }
   }
 
   async function deleteTodo() {
+    setDeleting(true);
     try {
+
       await axios.delete(
         `${process.env.NEXT_PUBLIC_API_BASE_URL}/todo/delete`,
             {
@@ -53,8 +58,10 @@ function TodoCard({ todo, onUpdate }: { todo: Todo; onUpdate?: () => void }) {
             withCredentials: true
         }
       );
+      setDeleting(false);
       onUpdate?.();
     } catch (error) {
+      setDeleting(false);
       console.error("Error deleting todo:", error);
     }
   }
