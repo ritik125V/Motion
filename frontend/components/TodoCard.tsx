@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { motion, AnimatePresence } from "framer-motion";
-import { Check, Pencil, Trash2, X ,Circle,CircleCheck  } from "lucide-react";
+import { Check, Pencil, Trash2, X ,Circle,CircleCheck,Loader, Loader2   } from "lucide-react";
 import { p, param } from "framer-motion/client";
 
 interface Todo {
@@ -20,6 +20,7 @@ function TodoCard({ todo, onUpdate }: { todo: Todo; onUpdate?: () => void }) {
   const [editTitle, setEditTitle] = useState(todo.title);
   const [editDesc, setEditDesc] = useState(todo.description || "");
   const [loading, setLoading] = useState(false);
+  const [deleting, setDeleting] = useState(false);
 
   async function toggleCompletion() {
     try {
@@ -147,11 +148,14 @@ function TodoCard({ todo, onUpdate }: { todo: Todo; onUpdate?: () => void }) {
                 className="w-[26px] h-[26px] flex items-center justify-center rounded-[6px] hover:bg-[#2F2F2F] group/del transition-colors duration-150"
                 aria-label="Delete"
               >
-                <Trash2
+                {
+                    deleting?(<Loader2 size={13} strokeWidth={1.8} className="text-[#da4545] animate-spin " />) : (
+                        <Trash2
                   size={13}
                   strokeWidth={1.8}
                   className="text-[#A3A3A3] group-hover/del:text-red-400 transition-colors duration-150"
-                />
+                /> )
+                }
               </button>
             </div>
           
@@ -225,7 +229,7 @@ function TodoCard({ todo, onUpdate }: { todo: Todo; onUpdate?: () => void }) {
                   transition-all duration-150 active:scale-[0.98]
                 "
               >
-                {loading ? "Saving..." : "Save"}
+                {loading ? <p className="flex items-center gap-1">saving <Loader width={12} className="text-black animate-spin"/></p> : "Save"}
               </button>
             </div>
           </motion.div>

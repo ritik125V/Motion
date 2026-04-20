@@ -3,7 +3,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import { motion, AnimatePresence } from "framer-motion";
-import { Plus, X } from "lucide-react";
+import { Plus, X ,Loader } from "lucide-react";
 
 type Status = "success" | "error" | "loading" | "";
 
@@ -186,7 +186,7 @@ export default function AddTodoCard({ onAdd }: AddTodoCardProps) {
                 {/* Status messages */}
                 <div className="mt-2 h-4">
                   {status === "loading" && (
-                    <p className="text-[12px] text-[#A3A3A3]">Adding...</p>
+                    <p className="text-[12px] flex items-center gap-1 text-[#A3A3A3]">Adding <Loader width={12} className="text-white animate-spin"/></p>
                   )}
                   {status === "error" && (
                     <p className="text-[12px] text-red-400">

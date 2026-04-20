@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import { Loader } from "lucide-react";
 import axios from "axios";
 
 export default function Page() {
@@ -104,14 +105,15 @@ export default function Page() {
           disabled={loading}
           className="
             w-full bg-[#EDEDED] hover:bg-white
-            text-[#191919] rounded-[8px]
-            py-[9px] text-[13px] font-medium
+            text-[#191919] rounded-lg
+            py-2.5 text-[13px] font-medium
+            items-center justify-center flex
             transition-all duration-150 active:scale-[0.98]
             disabled:opacity-40 disabled:cursor-not-allowed
             mb-2
           "
         >
-          {loading ? "Signing in..." : "Sign in"}
+          {loading ? <p className="flex items-center gap-1">signing in <Loader width={12} className="text-black animate-spin"/></p> : "Sign in"}
         </button>
 
         <div className="flex items-center gap-[10px] my-3">
