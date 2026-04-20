@@ -77,13 +77,7 @@ export default function Landing() {
               }}
               className="border border-white px-4 py-1 text-xs hover:bg-white hover:text-black transition"
             >
-              {loading
-                ? "..."
-                : error
-                ? "Retry"
-                : status
-                ? "Add a task"
-                : "Get started"}
+              get started
             </motion.button>
           </AnimatePresence>
         </div>

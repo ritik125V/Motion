@@ -177,7 +177,7 @@ async function getUserTodos(req,res){
             const todos = JSON.parse(cached);
             return res.status(200).json({
                 success:true,
-                message:"Todos fetched successfully",
+                message:"Todos fetched successfully (redis cache)",
                 todos
             });
         }
@@ -194,7 +194,7 @@ async function getUserTodos(req,res){
 
         return res.status(200).json({
             success:true,
-            message:"Todos fetched successfully",
+            message:"Todos fetched successfully (db fetch)",
             todos
         });
     } catch (error) {

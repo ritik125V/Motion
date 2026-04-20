@@ -21,6 +21,7 @@ function TodoCard({ todo, onUpdate }: { todo: Todo; onUpdate?: () => void }) {
   const [editDesc, setEditDesc] = useState(todo.description || "");
   const [loading, setLoading] = useState(false);
   const [deleting, setDeleting] = useState(false);
+  const [updatingStatus , setUpdatingstatus] = useState(false)
 
   async function toggleCompletion() {
     try {
@@ -98,9 +99,17 @@ function TodoCard({ todo, onUpdate }: { todo: Todo; onUpdate?: () => void }) {
             className=" py-0.5 flex flex-col" 
               onClick={toggleCompletion}
             >
-              {!todo.completed ? (
-                <Circle size={14} strokeWidth={2.5} color="white" />
-              ): <CircleCheck size={14} strokeWidth={2.5} color="#4ADE80" />}
+              {
+                updatingStatus ? (
+                    <Loader size={16} className="text-[#EDEDED] animate-spin" />
+                ) : (
+                    todo.completed ? (
+                        <CircleCheck size={16} className="text-green-500" />
+                    ) : (
+                        <Circle size={16} className="text-[#555]" />
+                    )
+                )
+              }
             </button>
 
             {/* Content */}
@@ -149,7 +158,7 @@ function TodoCard({ todo, onUpdate }: { todo: Todo; onUpdate?: () => void }) {
                 aria-label="Delete"
               >
                 {
-                    deleting?(<Loader2 size={13} strokeWidth={1.8} className="text-[#da4545] animate-spin " />) : (
+                    deleting?(<Loader size={13} strokeWidth={1.8} className="text-[#da4545] animate-spin " />) : (
                         <Trash2
                   size={13}
                   strokeWidth={1.8}
